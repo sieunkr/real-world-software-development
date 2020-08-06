@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @SpringBootApplication
@@ -21,6 +24,7 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        /*
         //예제 2-1
         //final Path path = Paths.get(RESOURCES + args[0]);
         final Path path = Paths.get(RESOURCES + "a.txt");
@@ -33,6 +37,37 @@ public class DemoApplication implements CommandLineRunner {
         }
 
         System.out.println("The total for all transactions is " + total);
+         */
 
+        //예제 2-2
+        //final Path path = Paths.get(RESOURCES = args[0]);
+        final Path path = Paths.get(RESOURCES + "a.txt");
+        final List<String> lines = Files.readAllLines(path);
+        double total = 0d;
+        final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        for (final String line : lines) {
+
+            final String[] columns = line.split(",");
+            final LocalDate date = LocalDate.parse(columns[0], DATE_PATTERN);
+
+            if(date.getMonth() == Month.JANUARY) {
+                final double amount = Double.parseDouble(columns[1]);
+                total += amount;
+            }
+        }
+
+        System.out.println("The total for all transactions is " + total);
+
+        /*
+        현재 메인 클래스는 여러 책임을 모두 포함하므로 이를 개별로 분리해야 한다.
+        1.입력 읽기
+        2.주어진 형식의 입력 파싱
+        3.결과 처리
+        4.결과 요약 리포트
+         */
     }
+
+
+
 }
