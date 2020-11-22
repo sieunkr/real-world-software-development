@@ -89,4 +89,15 @@ public class BankStatementProcessor {
         }
         return result;
     }
+
+    //개방/폐쇄 원칙을 적용한 후 유연해진..
+    public List<BankTransaction> findTransactions(final BankTransactionFilter filter) {
+        final List<BankTransaction> result = new ArrayList<>();
+        for(final BankTransaction bankTransaction : bankTransactionList) {
+            if(filter.test(bankTransaction)) {
+                result.add(bankTransaction);
+            }
+        }
+        return result;
+    }
 }
