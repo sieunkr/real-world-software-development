@@ -74,7 +74,7 @@ public class DemoApplication implements CommandLineRunner {
         4.결과 요약 리포트
          */
 
-        // 2.5, 2.6 
+        // 2.5, 2.6
         final Path path = Paths.get(RESOURCES + "a.txt");
         final List<String> lines = Files.readAllLines(path);
         double total = 0d;
@@ -90,12 +90,15 @@ public class DemoApplication implements CommandLineRunner {
                 .sum();
 
          */
+        //total = calculateTotalAmount(list);
+        //System.out.println("The total for all transactions is " + total);
 
+        final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(list);
+        //bankStatementProcessor.calculateTotalAmount();
 
-        total = calculateTotalAmount(list);
-
-        System.out.println("The total for all transactions is " + total);
+        collectSummary(bankStatementProcessor);
     }
+
 
     public static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
         double total = 0d;
@@ -105,5 +108,12 @@ public class DemoApplication implements CommandLineRunner {
         return total;
     }
 
+    private static void collectSummary(final BankStatementProcessor bankStatementProcessor) {
+        System.out.println("the total for all transactions is "
+        + bankStatementProcessor.calculateTotalAmount());
+
+        System.out.println("the total for transactions in January is "
+                + bankStatementProcessor.cadlculateTotalInMonth(Month.JANUARY));
+    }
 
 }
