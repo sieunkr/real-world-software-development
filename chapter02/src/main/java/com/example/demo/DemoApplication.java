@@ -39,6 +39,8 @@ public class DemoApplication implements CommandLineRunner {
         System.out.println("The total for all transactions is " + total);
          */
 
+
+        /*
         //예제 2-2
         //final Path path = Paths.get(RESOURCES = args[0]);
         final Path path = Paths.get(RESOURCES + "a.txt");
@@ -58,6 +60,11 @@ public class DemoApplication implements CommandLineRunner {
         }
 
         System.out.println("The total for all transactions is " + total);
+        */
+
+
+
+        //예제 2.3, 2.4 BankStatementCSVParser, BankTransaction 클래스 생성
 
         /*
         현재 메인 클래스는 여러 책임을 모두 포함하므로 이를 개별로 분리해야 한다.
@@ -66,8 +73,37 @@ public class DemoApplication implements CommandLineRunner {
         3.결과 처리
         4.결과 요약 리포트
          */
+
+        // 2.5, 2.6 
+        final Path path = Paths.get(RESOURCES + "a.txt");
+        final List<String> lines = Files.readAllLines(path);
+        double total = 0d;
+        final DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        BankStatementCSVParser parser = new BankStatementCSVParser();
+        List<BankTransaction> list = parser.parseLinesFromCSV(lines);
+
+        /*
+        total = list.stream()
+                .filter(b -> b.getDate().getMonth().getValue() == 1)
+                .mapToDouble(BankTransaction::getAmount)
+                .sum();
+
+         */
+
+
+        total = calculateTotalAmount(list);
+
+        System.out.println("The total for all transactions is " + total);
     }
 
+    public static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
+        double total = 0d;
+        for(final BankTransaction bankTransaction : bankTransactions) {
+            total += bankTransaction.getAmount();
+        }
+        return total;
+    }
 
 
 }
