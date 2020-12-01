@@ -19,7 +19,7 @@ public class DocumentManagementSystemTest
             "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private static final String LETTER = RESOURCES + "resource/patient.letter";
     private static final String REPORT = RESOURCES + "resource/patient.report";
-    private static final String XRAY = RESOURCES + "xray.jpg";
+    private static final String XRAY = RESOURCES + "resource/xray.jpg";
     private static final String INVOICE = RESOURCES + "resource/patient.invoice";
     private static final String JOE_BLOGGS = "Joe Bloggs";
 
