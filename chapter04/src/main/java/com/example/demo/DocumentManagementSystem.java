@@ -19,6 +19,7 @@ public class DocumentManagementSystem {
         extensionToImporter.put("report", new ReportImporter());
         extensionToImporter.put("jpg", new ImageImporter());
     }
+
     // end::importer_lookup[]
     {
         extensionToImporter.put("invoice", new InvoiceImporter());
